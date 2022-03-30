@@ -26,8 +26,7 @@ exports.checkToken = (shouldCheckPathArray, unlessCheckPathArray) => async (ctx,
 
   const unlessCheck = unlessCheckPathArray.some(url => currentUrl.indexOf(url) > -1);
 
-  const shouldCheck =
-    shouldCheckPathArray.some(url => currentUrl.indexOf(url) > -1) && method !== 'GET';
+  const shouldCheck = method !== 'GET' && shouldCheckPathArray.some(url => currentUrl.indexOf(url) > -1);
 
   if (shouldCheck && !unlessCheck) {
     const token = getTokenFromCtx(ctx);

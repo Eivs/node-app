@@ -1,23 +1,19 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate');
 const uniqueValidator = require('mongoose-unique-validator');
+const mongoosePaginate = require('mongoose-paginate');
 const { updateVersionKey } = require('../utils/tools');
 
 const schema = new mongoose.Schema(
   {
-    name: {
+    userName: {
       type: String,
       unique: true,
-      required: [true, 'name is required'],
+      required: [true, 'userName is required'],
     },
-    value: {
+    password: {
       type: String,
       unique: true,
-      required: [true, 'value is required'],
-    },
-    rank: {
-      type: Number,
-      default: 0,
+      required: [true, 'password is required'],
     },
   },
   {
@@ -30,4 +26,4 @@ schema.pre('findOneAndUpdate', updateVersionKey);
 schema.plugin(mongoosePaginate);
 schema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('Category', schema);
+module.exports = mongoose.model('Users', schema);

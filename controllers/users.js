@@ -1,6 +1,6 @@
-const db = require('../database/blog');
+const db = require('../database/user');
 const ApiError = require('../error/api_error');
-const tokenHelper = require('../utils/tools');
+const token = require('../utils/token');
 
 exports.signUp = async ctx => {
   const dataObj = ctx.request.body;
@@ -8,9 +8,9 @@ exports.signUp = async ctx => {
   await db
     .signUp(dataObj)
     .then(res => {
-      const token = tokenHelper.createToken(res);
+      const newToken = token.createToken(res);
       const { password, ...restData } = res._doc;
-      ctx.res.setHeader('Authorization', token);
+      ctx.res.setHeader('Authorization', newToken);
       ctx.body = {
         token,
         ...restData,
@@ -27,9 +27,9 @@ exports.signIn = async ctx => {
   await db
     .signIn(dataObj)
     .then(res => {
-      const token = tokenHelper.createToken(res);
+      const newToken = token.createToken(res);
       const { password, ...restData } = res;
-      ctx.res.setHeader('Authorization', token);
+      ctx.res.setHeader('Authorization', newToken);
       ctx.body = {
         token,
         ...restData,
