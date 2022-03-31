@@ -2,14 +2,15 @@ const Koa = require('koa');
 const path = require('path');
 const koaBody = require('koa-body');
 const json = require('koa-json');
-const logger = require('koa-logger');
+const koaLogger = require('koa-logger');
+
 const onerror = require('koa-onerror');
 
 const { apiPrefix } = require('./config/index');
 const responseFormatter = require('./middleware/response_formatter');
 const routers = require('./routers/index');
 const token = require('./utils/token');
-const { accessLogger } = require('./logger');
+const { koaLog4, logger } = require('./logger');
 require('./database/db');
 
 const app = new Koa();
@@ -36,8 +37,9 @@ app.use(
 );
 
 app.use(json());
-app.use(accessLogger());
-app.use(logger());
+app.use(koaLog4());
+// app.use(koaLogger());
+
 app.use(
   token.checkToken(
     ['/api/blogs', '/api/categories'],
@@ -53,7 +55,7 @@ app.use(routers.routes()).use(routers.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx);
+  logger.error('server error', err, ctx);
 });
 
 module.exports = app;

@@ -5,7 +5,11 @@
  */
 const http = require('http');
 const debug = require('debug')('demo:server');
+
 const app = require('../app');
+const { logger } = require('../logger');
+
+global.logger = logger;
 
 /**
  * Normalize a port into a number, string, or false.
@@ -61,11 +65,11 @@ server.on('error', error => {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
+      logger.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
+      logger.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:

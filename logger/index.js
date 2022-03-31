@@ -8,22 +8,25 @@ log4js.configure({
       pattern: '-yyyy-MM-dd.log',
       filename: path.join('logs/', 'access.log'),
     },
-    application: {
+    error: {
       type: 'dateFile',
       pattern: '-yyyy-MM-dd.log',
-      filename: path.join('logs/', 'application.log'),
+      filename: path.join('logs/', 'error.log'),
     },
     out: {
-      type: 'console',
+      type: 'stdout',
     },
   },
   categories: {
-    default: { appenders: ['out'], level: 'info' },
-    access: { appenders: ['access'], level: 'info' },
-    application: { appenders: ['application'], level: 'WARN' },
+    default: { appenders: ['out'], level: 'ALL' },
+    access: { appenders: ['access'], level: 'INFO' },
+    error: { appenders: ['error'], level: 'WARN' },
   },
 });
 
-exports.accessLogger = () => log4js.koaLogger(log4js.getLogger('access'));
+const logger = log4js.getLogger();
+logger.level = 'all';
 
-exports.logger = log4js.getLogger('application');
+exports.koaLog4 = () => log4js.koaLogger(logger);
+
+exports.logger = logger;
