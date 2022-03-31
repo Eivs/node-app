@@ -5,10 +5,10 @@ const { updateVersionKey } = require('../utils/tools');
 
 const schema = new mongoose.Schema(
   {
-    userName: {
+    username: {
       type: String,
       unique: true,
-      required: [true, 'userName is required'],
+      required: [true, 'username is required'],
     },
     password: {
       type: String,
@@ -18,7 +18,7 @@ const schema = new mongoose.Schema(
   },
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
-  },
+  }
 );
 
 schema.pre('findOneAndUpdate', updateVersionKey);

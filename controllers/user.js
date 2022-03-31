@@ -1,6 +1,7 @@
 const db = require('../database/user');
 const ApiError = require('../error/api_error');
 const token = require('../utils/token');
+const ApiErrorNames = require('../error/api_error_name');
 
 exports.signUp = async ctx => {
   const dataObj = ctx.request.body;
@@ -12,7 +13,7 @@ exports.signUp = async ctx => {
       const { password, ...restData } = res._doc;
       ctx.res.setHeader('Authorization', newToken);
       ctx.body = {
-        token,
+        newToken,
         ...restData,
       };
     })
@@ -27,13 +28,17 @@ exports.signIn = async ctx => {
   await db
     .signIn(dataObj)
     .then(res => {
-      const newToken = token.createToken(res);
-      const { password, ...restData } = res;
-      ctx.res.setHeader('Authorization', newToken);
-      ctx.body = {
-        token,
-        ...restData,
-      };
+      if (!res) {
+        throw new ApiError(ApiErrorNames.LOGIN_FAILED);
+      } else {
+        const newToken = token.createToken(res);
+        const { password, ...restData } = res._doc;
+        ctx.res.setHeader('Authorization', newToken);
+        ctx.body = {
+          newToken,
+          ...restData,
+        };
+      }
     })
     .catch(err => {
       throw new ApiError(err.name, err.message);

@@ -27,7 +27,7 @@ const schema = new mongoose.Schema(
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
     toJSON: { virtuals: true },
-  },
+  }
 );
 
 // 虚拟字段：根据_id查找对应表中的数据。

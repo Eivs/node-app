@@ -4,19 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon ./app.js",
-    "rc": "cross-env NODE_ENV=production nodemon ./app.js",
-    "pm2": "cross-env NODE_ENV=production NODE_LOG_DIR=/tmp ENABLE_NODE_LOG=YES pm2 start ./bin/pm2.config.json",
+    "start": "cross-env NODE_ENV=production node bin/www",
+    "dev": "cross-env NODE_ENV=development nodemon bin/www",
+    "prd": "cross-env NODE_ENV=production NODE_LOG_DIR=/tmp ENABLE_NODE_LOG=YES pm2 start ./bin/pm2.config.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "elvis",
   "license": "ISC",
   "dependencies": {
     "cross-env": "^7.0.3",
+    "debug": "^4.3.4",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-json": "^2.0.2",
+    "koa-log4": "^2.3.2",
     "koa-logger": "^3.2.1",
     "koa-onerror": "^4.2.0",
     "koa-router": "^10.1.1",
@@ -27,7 +29,10 @@
   "devDependencies": {
     "eslint": "^8.12.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",
-    "nodemon": "^2.0.15"
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.6.1"
   }
 }

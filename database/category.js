@@ -32,7 +32,7 @@ exports.update = data => {
     },
     {
       new: true, // 返回修改后的数据
-    },
+    }
   ).exec();
 };
 

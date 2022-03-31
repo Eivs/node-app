@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "api",
-      "script": "./app.js",
+      "script": "bin/www",
       "instances": 0,
       "watch": false,
       "exec_mode": "cluster_mode"

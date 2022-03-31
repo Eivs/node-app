@@ -22,7 +22,7 @@ const schema = new mongoose.Schema(
   },
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
-  },
+  }
 );
 
 schema.pre('findOneAndUpdate', updateVersionKey);

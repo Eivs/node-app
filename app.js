@@ -9,6 +9,7 @@ const { apiPrefix } = require('./config/index');
 const responseFormatter = require('./middleware/response_formatter');
 const routers = require('./routers/index');
 const token = require('./utils/token');
+const { accessLogger } = require('./logger');
 require('./database/db');
 
 const app = new Koa();
@@ -31,16 +32,17 @@ app.use(
         },
       },
     },
-  }),
+  })
 );
 
 app.use(json());
+app.use(accessLogger());
 app.use(logger());
 app.use(
   token.checkToken(
     ['/api/blogs', '/api/categories'],
-    ['/api/users/signup', '/api/users/signin', '/api/users/forgetPwd'],
-  ),
+    ['/api/signup', '/api/login', '/api/users/forgetPwd']
+  )
 );
 
 // response formatter
@@ -54,4 +56,4 @@ app.on('error', (err, ctx) => {
   console.error('server error', err, ctx);
 });
 
-app.listen(3000);
+module.exports = app;

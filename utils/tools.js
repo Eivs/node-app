@@ -32,7 +32,7 @@ exports.validatorsFun = {
  * When using update(), findOneAndUpdate(), etc. Mongoose
  * will not update the version key.
  * This plugin provides a workaround to always update the version key.
-*/
+ */
 exports.updateVersionKey = () => {
   const update = this.getUpdate();
   if (update.__v != null) {
