@@ -1,4 +1,5 @@
 const ApiErrorMap = require('./api_error_map');
+const { logger } = require('../utils/logger');
 
 class ApiError extends Error {
   constructor(errorName, errorMsg) {
@@ -18,6 +19,8 @@ class ApiError extends Error {
     this.name = errorName;
     this.code = errorInfo.code;
     this.message = errorInfo.message;
+
+    logger.error(this.message);
   }
 }
 

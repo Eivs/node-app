@@ -1,12 +1,12 @@
 const ApiErrorNames = {
-  NOT_FOUND: 'not_found',
-  UNKNOWN_ERROR: 'unknown_error',
-  LEGAL_ID: 'legal_id',
-  UNEXIST_ID: 'unexist_id',
-  LEGAL_FILE_TYPE: 'legal_file_type',
-  LOGIN_FAILED: 'login_failed',
-  NO_AUTH: 'no_auth',
-  METHOD_NOT_ALLOWED: 'method_not_allowed',
+  NOT_FOUND: 404,
+  UNKNOWN_ERROR: 500,
+  LEGAL_ID: 200,
+  UNEXIST_ID: 400,
+  LEGAL_FILE_TYPE: 200,
+  LOGIN_FAILED: 400,
+  NO_AUTH: 401,
+  METHOD_NOT_ALLOWED: 405,
 };
 
 module.exports = ApiErrorNames;

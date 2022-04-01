@@ -19,7 +19,6 @@
     "koa-body": "^4.2.0",
     "koa-json": "^2.0.2",
     "koa-log4": "^2.3.2",
-    "koa-logger": "^3.2.1",
     "koa-onerror": "^4.2.0",
     "koa-router": "^10.1.1",
     "mongoose": "^6.2.9",

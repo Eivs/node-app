@@ -29,6 +29,7 @@ exports.signIn = async ctx => {
     .signIn(dataObj)
     .then(res => {
       if (!res) {
+        ctx.status = 400;
         throw new ApiError(ApiErrorNames.LOGIN_FAILED);
       } else {
         const newToken = token.createToken(res);

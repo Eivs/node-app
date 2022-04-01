@@ -1,9 +1,5 @@
 const Model = require('../models/blog');
 
-// TODO: 此文件中最好返回 Promise。通过 .exec() 可以返回 Promise。
-// 需要注意的是 分页插件本身返回的就是 Promise 因此 Model.paginate 不需要 exec()。
-// Model.create 返回的也是 Promise
-
 const populateObj = [
   {
     path: 'categoryObj',
@@ -43,7 +39,6 @@ exports.findSome = data => {
     query.category = category;
   }
 
-  // 关键字模糊查询 标题 和 content
   if (keyword) {
     const reg = new RegExp(keyword, 'i');
     const fuzzyQueryArray = [{ content: { $regex: reg } }];

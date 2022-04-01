@@ -12,7 +12,7 @@ exports.createToken = user => {
     { userId: user._id, userName: user.userName },
     config.tokenSecret,
     {
-      expiresIn: '2h',
+      expiresIn: '6h',
     }
   );
   return token;

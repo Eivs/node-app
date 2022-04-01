@@ -7,9 +7,7 @@ const http = require('http');
 const debug = require('debug')('demo:server');
 
 const app = require('../app');
-const { logger } = require('../logger');
-
-global.logger = logger;
+const { logger } = require('../utils/logger');
 
 /**
  * Normalize a port into a number, string, or false.

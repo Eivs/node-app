@@ -2,11 +2,10 @@ const Model = require('../models/user');
 
 exports.signIn = data => {
   const { username, password } = data;
-  const result = Model.findOne({
+  return Model.findOne({
     username,
     password,
-  });
-  return result;
+  }).exec();
 };
 
 exports.signUp = data => Model.create(data);

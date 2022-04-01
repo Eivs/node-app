@@ -4,9 +4,6 @@ const tool = require('../utils/tools');
 const ApiError = require('../error/api_error');
 const ApiErrorNames = require('../error/api_error_name');
 
-/**
- * Query
- */
 exports.find = async ctx => {
   let result;
   const reqQuery = ctx.query;
@@ -34,9 +31,6 @@ exports.find = async ctx => {
     });
 };
 
-/**
- * Detail
- */
 exports.detail = async ctx => {
   const { id } = ctx.params;
   if (!tool.validatorsFun.numberAndCharacter(id)) {
@@ -57,9 +51,6 @@ exports.detail = async ctx => {
     });
 };
 
-/**
- * Add
- */
 exports.add = async ctx => {
   const dataObj = ctx.request.body;
 
@@ -73,13 +64,9 @@ exports.add = async ctx => {
     });
 };
 
-/**
- * Update
- */
 exports.update = async ctx => {
   const ctxParams = ctx.params;
-  // 合并 路由中的参数 以及 发送过来的参数
-  // 路由参数 以及发送的参数可能都有 id 以 发送的 id 为准，如果没有，取路由中的 id
+
   const dataObj = { ...ctxParams, ...ctx.request.body };
 
   await db
@@ -96,13 +83,8 @@ exports.update = async ctx => {
     });
 };
 
-/**
- * Delete
- */
 exports.delete = async ctx => {
   const ctxParams = ctx.params;
-  // 合并 路由中的参数 以及 发送过来的参数
-  // 路由参数 以及发送的参数可能都有 id 以 发送的 id 为准，如果没有，取路由中的 id
   const dataObj = { ...ctxParams, ...ctx.request.body };
   if (!tool.validatorsFun.numberAndCharacter(dataObj.id)) {
     throw new ApiError(ApiErrorNames.LEGAL_ID);

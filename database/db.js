@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config');
+const { logger } = require('../utils/logger');
 
 mongoose.Promise = global.Promise;
 const protocol = 'mongodb://';
@@ -10,18 +11,18 @@ mongoose
     autoIndex: false,
     serverSelectionTimeoutMS: 5000,
   })
-  .catch(err => console.log(err.reason));
+  .catch(err => logger.error(err.reason));
 
 mongoose.connection.on('connected', () => {
-  console.log(`Mongoose connected: ${databaseUrl}`);
+  logger.info(`Mongoose connected: ${databaseUrl}`);
 });
 
 mongoose.connection.on('error', err => {
-  console.error(`mongoose connect failed: ${err}`);
+  logger.error(`mongoose connect failed: ${err}`);
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose disconnected.');
+  logger.info('Mongoose disconnected.');
 });
 
 module.exports = mongoose;

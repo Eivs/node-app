@@ -2,7 +2,7 @@ const Koa = require('koa');
 const path = require('path');
 const koaBody = require('koa-body');
 const json = require('koa-json');
-const koaLogger = require('koa-logger');
+// const koaLogger = require('koa-logger');
 
 const onerror = require('koa-onerror');
 
@@ -10,7 +10,7 @@ const { apiPrefix } = require('./config/index');
 const responseFormatter = require('./middleware/response_formatter');
 const routers = require('./routers/index');
 const token = require('./utils/token');
-const { koaLog4, logger } = require('./logger');
+const { accessLogger, logger } = require('./utils/logger');
 require('./database/db');
 
 const app = new Koa();
@@ -28,8 +28,8 @@ app.use(
         keepExtensions: true,
         maxFieldsSize: 2 * 1024 * 1024,
         onFileBegin: (name, file) => {
-          console.log(`name: ${name}`);
-          console.log(file);
+          logger.info(`name: ${name}`);
+          logger.info(file);
         },
       },
     },
@@ -37,12 +37,11 @@ app.use(
 );
 
 app.use(json());
-app.use(koaLog4());
-// app.use(koaLogger());
+app.use(accessLogger());
 
 app.use(
   token.checkToken(
-    ['/api/blogs', '/api/categories'],
+    ['/blogs', '/categories'],
     ['/api/signup', '/api/login', '/api/users/forgetPwd']
   )
 );
