@@ -4,7 +4,7 @@ const { logger } = require('../utils/logger');
 
 mongoose.Promise = global.Promise;
 const protocol = 'mongodb://';
-const databaseUrl = `${protocol}${process.env.MONGODB_URI || config.database}`;
+const databaseUrl = `${protocol}${config.database}`;
 
 mongoose
   .connect(databaseUrl, {
